@@ -71,9 +71,7 @@ public class ThreadLocalWithDDTagsInitValue<T> extends ThreadLocal<T> {
 
   public static <T> ThreadLocal<T> create(T origThreadLocalValue)
       throws InvocationTargetException, IllegalAccessException {
-    if (origThreadLocalValue instanceof Map) {
-      ((Map) origThreadLocalValue).putAll(LogContextScopeListener.LOG_CONTEXT_DD_TAGS);
-    } else {
+    synchronized (origThreadLocalValue) {
       putToMap(origThreadLocalValue, LogContextScopeListener.LOG_CONTEXT_DD_TAGS);
     }
     return new ThreadLocalWithDDTagsInitValue<>(origThreadLocalValue);

@@ -31,7 +31,7 @@ public class MDCInjectionInstrumentation extends Instrumenter.Default {
   // mdcClassName = org.slf4j.MDC
   private static final String mdcClassName = "org.TMP.MDC".replaceFirst("TMP", "slf4j");
 
-  private boolean initialized = false;
+  private volatile boolean initialized = false;
 
   public MDCInjectionInstrumentation() {
     super(MDC_INSTRUMENTATION_NAME);
